@@ -2,18 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <header>About This Web Server</header>
+    <header>📖 About This Web Server</header>
     <nav>
-        <a href="/">Home</a>
-        <a href="/about">About</a>
+        <a href="/" class="nav-link">Home</a>
+        <a href="/about" class="nav-link active">About</a>
     </nav>
     <main>
-        <h2>About Page</h2>
-        <p>This Flask server now looks modern with CSS and interactive elements.</p>
+        <div class="container">
+            <h2>About Page</h2>
+            <p>This Flask server now looks modern with CSS and interactive elements.</p>
+            <div class="info-box">
+                <h3>Features</h3>
+                <ul>
+                    <li>Beautiful gradient background</li>
+                    <li>Responsive design</li>
+                    <li>Interactive elements</li>
+                    <li>Modern UI with smooth transitions</li>
+                </ul>
+            </div>
+        </div>
     </main>
+    <footer>
+        <p>&copy; 2025 My Flask Web Server. All rights reserved.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
