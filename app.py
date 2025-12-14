@@ -8,7 +8,7 @@ def home():
 
 @app.route("/about")
 def about():
-    return "<p>This is a simple web server using Flask.</p>"
+    return render_template("about.html")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)

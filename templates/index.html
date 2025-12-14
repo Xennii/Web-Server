@@ -1,11 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Flask Web Server</title>
+    <meta charset="UTF-8">
+    <title>My Flask Web Server</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Welcome to My Flask Web Server!</h1>
-    <p>This is served from an HTML template.</p>
-    <a href="/about">Go to About</a>
+    <header>My Awesome Flask Web Server</header>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+    </nav>
+    <main>
+        <h2>Welcome!</h2>
+        <p>This is a modern interface served with Flask.</p>
+        <button onclick="showMessage()">Click Me!</button>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
