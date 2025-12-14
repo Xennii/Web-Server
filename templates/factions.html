@@ -6,8 +6,8 @@
     <title>Major Factions - Warhammer 40K</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
-    <header>⚔️ WARHAMMER 40,000 ⚔️<br><span class="subtitle">In the grim darkness of the far future, there is only war...</span></header>
+<body data-page="factions">
+    <header>WARHAMMER 40,000<br><span class="subtitle">In the grim darkness of the far future, there is only war...</span></header>
     <nav>
         <a href="/" class="nav-link">Home</a>
         <a href="/factions" class="nav-link active">Factions</a>
@@ -20,15 +20,20 @@
             <p class="intro-text">The galaxy is divided among countless powers, each fighting for dominance in an endless war.</p>
             
             <div class="faction-detailed">
-                <div class="faction-header imperium">🔵 THE IMPERIUM OF MAN</div>
-                <p><strong>Colors:</strong> Blue and Gold | <strong>Founded:</strong> M25 | <strong>Population:</strong> Quadrillions</p>
-                <p>The largest human empire in the galaxy. Led from the Holy World of Terra by the immortal God-Emperor, the Imperium stretches across thousands of inhabited worlds. Despite its vastness, it stagnates under bureaucratic weight and superstition, slowly losing worlds to enemies and decay.</p>
-                <p><strong>Strength:</strong> Vast numbers, ancient technology, Space Marines, faith</p>
-                <p><strong>Weakness:</strong> Stagnant, corrupt, losing territory</p>
+                <div class="faction-image-container">
+                    <img src="https://via.placeholder.com/200x300?text=The+God-Emperor" alt="The Imperium Leader" class="faction-leader-image">
+                </div>
+                <div class="faction-info">
+                    <div class="faction-header imperium">THE IMPERIUM OF MAN</div>
+                    <p><strong>Colors:</strong> Blue and Gold | <strong>Founded:</strong> M25 | <strong>Population:</strong> Quadrillions</p>
+                    <p>The largest human empire in the galaxy. Led from the Holy World of Terra by the immortal God-Emperor, the Imperium stretches across thousands of inhabited worlds. Despite its vastness, it stagnates under bureaucratic weight and superstition, slowly losing worlds to enemies and decay.</p>
+                    <p><strong>Strength:</strong> Vast numbers, ancient technology, Space Marines, faith</p>
+                    <p><strong>Weakness:</strong> Stagnant, corrupt, losing territory</p>
+                </div>
             </div>
 
             <div class="faction-detailed">
-                <div class="faction-header chaos">🔴 FORCES OF CHAOS</div>
+                <div class="faction-header chaos">FORCES OF CHAOS</div>
                 <p><strong>Colors:</strong> Black and Red | <strong>Founded:</strong> Prehistoric | <strong>Powers:</strong> Dark Gods</p>
                 <p>Servants of the Chaos Gods—Khorne the Blood God, Nurgle the Plague Lord, Tzeentch the Changer, and Slaanesh the Dark Prince. These corrupted warriors and daemons seek to plunge the galaxy into eternal darkness. They are powered by human sin, emotion, and bloodlust.</p>
                 <p><strong>Strength:</strong> Daemonic powers, endless numbers, corruption</p>
@@ -36,7 +41,7 @@
             </div>
 
             <div class="faction-detailed">
-                <div class="faction-header eldar">💜 THE AELDARI (ELDAR)</div>
+                <div class="faction-header eldar">THE AELDARI</div>
                 <p><strong>Colors:</strong> Purple and Blue | <strong>Founded:</strong> Ancient past | <strong>Status:</strong> Endangered</p>
                 <p>An ancient, proud race of psychic warriors who once ruled the galaxy. Now they hide in their craftworlds, fleeing the predations of Slaanesh, who hunts their souls. Some have embraced darkness as Dark Eldar, becoming raiders and torturers.</p>
                 <p><strong>Strength:</strong> Psychic powers, ancient technology, speed</p>
@@ -44,7 +49,7 @@
             </div>
 
             <div class="faction-detailed">
-                <div class="faction-header orks">🟠 ORKS</div>
+                <div class="faction-header orks">ORKS</div>
                 <p><strong>Colors:</strong> Green and Yellow | <strong>Founded:</strong> Engineered by Old Ones | <strong>Nature:</strong> Brutal</p>
                 <p>Brutish, warlike creatures who exist solely for conquest and battle. Their crude technology works through belief and luck. They spread like locusts, their WAAAGHs consuming entire sectors. Yet they are cunning in their own savage way.</p>
                 <p><strong>Strength:</strong> Incredible ferocity, numbers, regeneration</p>
@@ -52,7 +57,7 @@
             </div>
 
             <div class="faction-detailed">
-                <div class="faction-header necron">⚪ NECRONS</div>
+                <div class="faction-header necron">NECRONS</div>
                 <p><strong>Colors:</strong> Silver and Black | <strong>Founded:</strong> M1 (ancient) | <strong>Status:</strong> Awakening</p>
                 <p>Ancient synthetic beings who ruled the galaxy billions of years ago. They lay dormant in their tombs until recently. Now they awaken, seeking to reclaim their dominion and eradicate all organic life. Their technology is incomprehensible to modern minds.</p>
                 <p><strong>Strength:</strong> Ancient tech, immortality, numbers, no emotion</p>
@@ -60,7 +65,7 @@
             </div>
 
             <div class="faction-detailed">
-                <div class="faction-header tau">🟡 THE TAU EMPIRE</div>
+                <div class="faction-header tau">THE TAU EMPIRE</div>
                 <p><strong>Colors:</strong> White and Red | <strong>Founded:</strong> M35 | <strong>Philosophy:</strong> The Greater Good</p>
                 <p>A young but rapidly expanding empire of psychically-null aliens. They seek conquest through diplomacy and collaboration under their philosophy of "The Greater Good." Many suspect hidden puppet masters control their expansion.</p>
                 <p><strong>Strength:</strong> Advanced technology, philosophy, gunlines</p>
