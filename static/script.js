@@ -66,8 +66,8 @@ function startGame() {
     document.getElementById('score').textContent = score;
     document.getElementById('gameStatus').textContent = '';
     document.getElementById('startBtn').style.display = 'none';
-    document.getElementById('pauseBtn').style.display = 'inline-block';
-    document.getElementById('pauseBtn').textContent = 'Pause';
+    document.getElementById('pauseBtn').style.display = 'inline-flex';
+    document.getElementById('pauseText').textContent = '⏸ Pause';
     
     if (gameLoop) clearInterval(gameLoop);
     gameLoop = setInterval(update, 100);
@@ -77,15 +77,39 @@ function togglePause() {
     if (!gameRunning) return;
     
     gamePaused = !gamePaused;
-    document.getElementById('pauseBtn').textContent = gamePaused ? 'Resume' : 'Pause';
+    const pauseBtn = document.getElementById('pauseBtn');
+    const pauseText = document.getElementById('pauseText');
+    pauseText.textContent = gamePaused ? '▶ Resume' : '⏸ Pause';
     
     if (gamePaused) {
         clearInterval(gameLoop);
-        document.getElementById('gameStatus').textContent = '⏸ PAUSED';
+        document.getElementById('gameStatus').textContent = '⏸ GAME PAUSED';
     } else {
         document.getElementById('gameStatus').textContent = '';
         gameLoop = setInterval(update, 100);
     }
+}
+
+function resetGame() {
+    clearInterval(gameLoop);
+    gameRunning = false;
+    gamePaused = false;
+    
+    document.getElementById('score').textContent = '0';
+    document.getElementById('gameStatus').textContent = '';
+    document.getElementById('startBtn').style.display = 'inline-flex';
+    document.getElementById('pauseBtn').style.display = 'none';
+    document.getElementById('pauseText').textContent = '⏸ Pause';
+    
+    score = 0;
+    snake = [{ x: 10, y: 10 }];
+    food = { x: 15, y: 15 };
+    dx = 1;
+    dy = 0;
+    nextDx = 1;
+    nextDy = 0;
+    
+    draw();
 }
 
 function update() {
@@ -121,38 +145,68 @@ function update() {
 }
 
 function draw() {
-    // Clear canvas
-    ctx.fillStyle = '#000';
+    // Clear canvas with light background
+    const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    gradient.addColorStop(0, '#f5f5f5');
+    gradient.addColorStop(1, '#fafafa');
+    ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
-    // Draw grid
-    ctx.strokeStyle = '#222';
-    ctx.lineWidth = 0.5;
-    for (let i = 0; i <= tileCount; i++) {
-        ctx.beginPath();
-        ctx.moveTo(i * gridSize, 0);
-        ctx.lineTo(i * gridSize, canvas.height);
-        ctx.stroke();
-        
-        ctx.beginPath();
-        ctx.moveTo(0, i * gridSize);
-        ctx.lineTo(canvas.width, i * gridSize);
-        ctx.stroke();
-    }
-    
-    // Draw snake
+    // Draw snake with green color
     snake.forEach((segment, index) => {
+        const x = segment.x * gridSize;
+        const y = segment.y * gridSize;
+        const size = gridSize - 2;
+        
         if (index === 0) {
-            ctx.fillStyle = '#00FF00';
+            // Head - bright green
+            ctx.fillStyle = '#10b981';
+            ctx.shadowColor = 'rgba(16, 185, 129, 0.4)';
+            ctx.shadowBlur = 6;
         } else {
-            ctx.fillStyle = '#00CC00';
+            // Body - lighter green
+            ctx.fillStyle = '#34d399';
+            ctx.shadowColor = 'none';
+            ctx.shadowBlur = 0;
         }
-        ctx.fillRect(segment.x * gridSize + 1, segment.y * gridSize + 1, gridSize - 2, gridSize - 2);
+        
+        // Draw rounded rectangles
+        ctx.beginPath();
+        ctx.roundRect(x + 1, y + 1, size, size, 3);
+        ctx.fill();
     });
     
-    // Draw food
-    ctx.fillStyle = '#FF0000';
-    ctx.fillRect(food.x * gridSize + 1, food.y * gridSize + 1, gridSize - 2, gridSize - 2);
+    // Draw snake head eye
+    if (snake.length > 0) {
+        const head = snake[0];
+        const hx = head.x * gridSize + gridSize / 2;
+        const hy = head.y * gridSize + gridSize / 2;
+        
+        // Calculate eye position based on direction
+        let eyeOffsetX = 0, eyeOffsetY = 0;
+        if (dx === 1) eyeOffsetX = 6;      // moving right
+        else if (dx === -1) eyeOffsetX = -6; // moving left
+        else if (dy === 1) eyeOffsetY = 6;   // moving down
+        else if (dy === -1) eyeOffsetY = -6; // moving up
+        
+        // Draw eye
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(hx + eyeOffsetX, hy + eyeOffsetY, 2, 0, Math.PI * 2);
+        ctx.fill();
+    }
+    
+    // Draw food as a circle with glow
+    ctx.shadowColor = 'rgba(239, 68, 68, 0.6)';
+    ctx.shadowBlur = 8;
+    ctx.fillStyle = '#ef4444';
+    ctx.beginPath();
+    ctx.arc(food.x * gridSize + gridSize / 2, food.y * gridSize + gridSize / 2, gridSize / 2 - 1, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Reset shadow
+    ctx.shadowColor = 'none';
+    ctx.shadowBlur = 0;
 }
 
 function endGame() {
@@ -163,17 +217,23 @@ function endGame() {
         highScore = score;
         localStorage.setItem('snakeHighScore', highScore);
         document.getElementById('highScore').textContent = highScore;
-        document.getElementById('gameStatus').textContent = `🎉 GAME OVER! New High Score: ${score}`;
+        document.getElementById('gameStatus').textContent = `🎉 New High Score: ${score}!`;
     } else {
-        document.getElementById('gameStatus').textContent = `💀 GAME OVER! Score: ${score}`;
+        document.getElementById('gameStatus').textContent = `Game Over! Final Score: ${score}`;
     }
     
-    document.getElementById('startBtn').style.display = 'inline-block';
+    document.getElementById('startBtn').style.display = 'inline-flex';
     document.getElementById('pauseBtn').style.display = 'none';
 }
 
 // Initial draw
 draw();
+
+// Toggle instructions visibility
+function toggleInstructions() {
+    const instructions = document.getElementById('instructions');
+    instructions.classList.toggle('hidden');
+}
 
 
 

@@ -17,45 +17,56 @@
 
         <main class="main-container">
             <div class="game-card">
-                <div class="stats-panel">
-                    <div class="stat-box">
-                        <span class="stat-label">Current Score</span>
-                        <span class="stat-value" id="score">0</span>
-                    </div>
-                    <div class="stat-box">
-                        <span class="stat-label">Best Score</span>
-                        <span class="stat-value" id="highScore">0</span>
-                    </div>
-                </div>
-
-                <div class="game-area">
-                    <canvas id="gameCanvas" width="400" height="400" class="game-canvas"></canvas>
-                </div>
-
-                <div class="controls-section">
-                    <div class="instructions">
-                        <h3>How to Play</h3>
-                        <ul>
-                            <li>Use <kbd>Arrow Keys</kbd> or <kbd>WASD</kbd> to control the snake</li>
-                            <li>Eat the red food to grow and earn points</li>
-                            <li>Avoid hitting walls and yourself</li>
-                            <li>Pause/Resume anytime during gameplay</li>
-                        </ul>
+                <div class="game-wrapper">
+                    <div class="game-left">
+                        <div class="game-area">
+                            <canvas id="gameCanvas" width="400" height="400" class="game-canvas"></canvas>
+                        </div>
                     </div>
 
-                    <div class="button-group">
-                        <button id="startBtn" class="btn btn-primary" onclick="startGame()">
-                            <span>▶ Start Game</span>
-                        </button>
-                        <button id="pauseBtn" class="btn btn-secondary" onclick="togglePause()" style="display:none;">
-                            <span id="pauseText">⏸ Pause</span>
-                        </button>
-                        <button id="resetBtn" class="btn btn-tertiary" onclick="resetGame()">
-                            <span>⟲ Reset</span>
-                        </button>
-                    </div>
+                    <div class="game-right">
+                        <div class="top-controls">
+                            <div class="stats-panel">
+                                <div class="stat-box">
+                                    <span class="stat-label">Score</span>
+                                    <span class="stat-value" id="score">0</span>
+                                </div>
+                                <div class="stat-box">
+                                    <span class="stat-label">Best</span>
+                                    <span class="stat-value" id="highScore">0</span>
+                                </div>
+                            </div>
+                            <button id="helpBtn" class="btn-icon" onclick="toggleInstructions()" title="How to Play">
+                                <span>?</span>
+                            </button>
+                        </div>
 
-                    <p id="gameStatus" class="game-status"></p>
+                        <div id="instructions" class="instructions hidden">
+                            <h3>How to Play</h3>
+                            <ul>
+                                <li>Use <kbd>Arrow Keys</kbd> or <kbd>WASD</kbd> to control the snake</li>
+                                <li>Eat the red food to grow and earn points</li>
+                                <li>Avoid hitting walls and yourself</li>
+                                <li>Pause/Resume anytime during gameplay</li>
+                            </ul>
+                        </div>
+
+                        <div class="controls-section">
+                            <div class="button-group">
+                                <button id="startBtn" class="btn btn-primary" onclick="startGame()">
+                                    <span>▶ Start</span>
+                                </button>
+                                <button id="pauseBtn" class="btn btn-secondary" onclick="togglePause()" style="display:none;">
+                                    <span id="pauseText">⏸ Pause</span>
+                                </button>
+                                <button id="resetBtn" class="btn btn-tertiary" onclick="resetGame()">
+                                    <span>⟲ Reset</span>
+                                </button>
+                            </div>
+
+                            <p id="gameStatus" class="game-status"></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
