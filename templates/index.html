@@ -3,25 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Flask Web Server</title>
+    <title>Warhammer 40K - The Imperium of Mankind</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <header>🚀 My Awesome Flask Web Server</header>
+    <header>⚔️ WARHAMMER 40,000 ⚔️<br><span class="subtitle">In the grim darkness of the far future, there is only war...</span></header>
     <nav>
         <a href="/" class="nav-link active">Home</a>
-        <a href="/about" class="nav-link">About</a>
+        <a href="/factions" class="nav-link">Factions</a>
+        <a href="/lore" class="nav-link">History</a>
+        <a href="/characters" class="nav-link">Legends</a>
     </nav>
     <main>
         <div class="container">
-            <h2>Welcome to Flask!</h2>
-            <p>This is a modern interface served with Flask.</p>
-            <button onclick="showMessage()" class="btn-primary">Click Me!</button>
-            <p id="message" class="message"></p>
+            <div class="hero-section">
+                <h2>The Imperium of Mankind</h2>
+                <p class="intro-text">A sprawling galactic empire spanning thousands of worlds, held together by faith, fear, and the immortal will of the God-Emperor.</p>
+            </div>
+
+            <div class="grid-content">
+                <div class="content-card">
+                    <h3>⚙️ The Golden Throne</h3>
+                    <p>For ten thousand years, the God-Emperor has sat upon the Golden Throne of Terra, his consciousness reaching across the galaxy through the Astronomican—a psychic beacon that guides human vessels through the warp.</p>
+                </div>
+
+                <div class="content-card">
+                    <h3>🏛️ The Adeptus Organizations</h3>
+                    <p>The Imperium is divided into many militant and governmental organizations: the Space Marines (genetically enhanced super-soldiers), the Imperial Guard (humanity's countless infantry), the Mechanicus (machine priests), and countless others.</p>
+                </div>
+
+                <div class="content-card">
+                    <h3>🌍 Ten Thousand Worlds</h3>
+                    <p>From Paradise Worlds with perfect climates to Hive Worlds stacked with billions of souls, the Imperium rules through an ancient bureaucracy that has remained virtually unchanged for millennia.</p>
+                </div>
+
+                <div class="content-card">
+                    <h3>⚡ The Warp</h3>
+                    <p>Faster-than-light travel through the Warp is the only way to traverse the vast distances of space. Yet the Warp is a hellish dimension where daemons lurk and time itself bends. Many ships are lost to its horrors.</p>
+                </div>
+            </div>
+
+            <div class="lore-highlight">
+                <h3>🎖️ Key Historical Events</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <span class="timeline-date">M25 (25,000)</span>
+                        <span class="timeline-desc">The Dark Age of Technology ends</span>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">M30 (30,000)</span>
+                        <span class="timeline-desc">The Emperor begins the Great Crusade</span>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">M31 (31,000)</span>
+                        <span class="timeline-desc">The Horus Heresy - civil war engulfs the Imperium</span>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">M42 (42,000)</span>
+                        <span class="timeline-desc">The current age - The Imperium stands on the brink</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-section">
+                <button onclick="showMessage()" class="btn-primary">⚡ Activate Vox Transmission</button>
+                <p id="message" class="message"></p>
+            </div>
         </div>
     </main>
     <footer>
-        <p>&copy; 2025 My Flask Web Server. All rights reserved.</p>
+        <p>IN THE GRIM DARKNESS OF THE FAR FUTURE | There is only War</p>
     </footer>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
