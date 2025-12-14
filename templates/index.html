@@ -3,91 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warhammer 40K - The Imperium of Mankind</title>
+    <title>Professional Snake Game</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body data-page="home">
-    <header>WARHAMMER 40,000<br><span class="subtitle">In the grim darkness of the far future, there is only war...</span></header>
-    <nav>
-        <a href="/" class="nav-link active">Home</a>
-        <a href="/factions" class="nav-link">Factions</a>
-        <a href="/lore" class="nav-link">History</a>
-        <a href="/characters" class="nav-link">Legends</a>
-    </nav>
-    <main>
-        <div class="container">
-            <div class="hero-section">
-                <div class="hero-image-gallery">
-                    <img src="/static/images/gallery/emperor-throne.png" alt="The God-Emperor" class="hero-image active" data-index="0">
-                    <img src="/static/images/gallery/imperium.png" alt="The Imperium" class="hero-image" data-index="1">
-                    <img src="/static/images/gallery/golden-throne.png" alt="The Golden Throne" class="hero-image" data-index="2">
-                    <div class="gallery-nav">
-                        <button class="gallery-btn prev" onclick="changeGallery(-1)">❮</button>
-                        <button class="gallery-btn next" onclick="changeGallery(1)">❯</button>
-                    </div>
-                    <div class="gallery-indicators">
-                        <span class="indicator active" onclick="goToGallery(0)"></span>
-                        <span class="indicator" onclick="goToGallery(1)"></span>
-                        <span class="indicator" onclick="goToGallery(2)"></span>
-                    </div>
-                </div>
-                <h2>The Imperium of Mankind</h2>
-                <p class="intro-text">A sprawling galactic empire spanning thousands of worlds, held together by faith, fear, and the immortal will of the God-Emperor.</p>
+<body>
+    <div class="page-wrapper">
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">🐍 Snake Game</h1>
+                <p class="subtitle">A classic puzzle game for skill and strategy</p>
             </div>
+        </header>
 
-            <div class="grid-content">
-                <div class="content-card">
-                    <h3>The Golden Throne</h3>
-                    <p>For ten thousand years, the God-Emperor has sat upon the Golden Throne of Terra, his consciousness reaching across the galaxy through the Astronomican—a psychic beacon that guides human vessels through the warp. An immortal consciousness sustaining an empire of quadrillions.</p>
+        <main class="main-container">
+            <div class="game-card">
+                <div class="stats-panel">
+                    <div class="stat-box">
+                        <span class="stat-label">Current Score</span>
+                        <span class="stat-value" id="score">0</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Best Score</span>
+                        <span class="stat-value" id="highScore">0</span>
+                    </div>
                 </div>
 
-                <div class="content-card">
-                    <h3>The Adeptus Organizations</h3>
-                    <p>The Imperium is divided into many militant and governmental institutions: the Space Marines—genetically enhanced super-soldiers who serve as the Imperium's finest warriors; the Imperial Guard—countless billions of infantry; and the Adeptus Mechanicus—machine priests who guard forbidden technology from a lost golden age.</p>
+                <div class="game-area">
+                    <canvas id="gameCanvas" width="400" height="400" class="game-canvas"></canvas>
                 </div>
 
-                <div class="content-card">
-                    <h3>Ten Thousand Worlds</h3>
-                    <p>From Paradise Worlds with perfect climates to Hive Worlds stacked with billions of souls, the Imperium rules through an ancient bureaucracy unchanged for millennia. Each world faces threats from within and without: xenos horrors, daemonic incursions, and the slow degradation of technology none remember how to build.</p>
-                </div>
+                <div class="controls-section">
+                    <div class="instructions">
+                        <h3>How to Play</h3>
+                        <ul>
+                            <li>Use <kbd>Arrow Keys</kbd> or <kbd>WASD</kbd> to control the snake</li>
+                            <li>Eat the red food to grow and earn points</li>
+                            <li>Avoid hitting walls and yourself</li>
+                            <li>Pause/Resume anytime during gameplay</li>
+                        </ul>
+                    </div>
 
-                <div class="content-card">
-                    <h3>The Warp</h3>
-                    <p>Faster-than-light travel requires passage through the Warp—a hellish dimension where daemons hunt and time itself bends to breaking point. Many ships are lost to its horrors, emerging years in the future or the past. Navigation requires psychic guides and the grace of the God-Emperor himself.</p>
-                </div>
-            </div>
+                    <div class="button-group">
+                        <button id="startBtn" class="btn btn-primary" onclick="startGame()">
+                            <span>▶ Start Game</span>
+                        </button>
+                        <button id="pauseBtn" class="btn btn-secondary" onclick="togglePause()" style="display:none;">
+                            <span id="pauseText">⏸ Pause</span>
+                        </button>
+                        <button id="resetBtn" class="btn btn-tertiary" onclick="resetGame()">
+                            <span>⟲ Reset</span>
+                        </button>
+                    </div>
 
-            <div class="lore-highlight">
-                <h3>Key Historical Events</h3>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <span class="timeline-date">M25 (25,000)</span>
-                        <span class="timeline-desc">The Dark Age of Technology ends</span>
-                    </div>
-                    <div class="timeline-item">
-                        <span class="timeline-date">M30 (30,000)</span>
-                        <span class="timeline-desc">The Emperor begins the Great Crusade</span>
-                    </div>
-                    <div class="timeline-item">
-                        <span class="timeline-date">M31 (31,000)</span>
-                        <span class="timeline-desc">The Horus Heresy - civil war engulfs the Imperium</span>
-                    </div>
-                    <div class="timeline-item">
-                        <span class="timeline-date">M42 (42,000)</span>
-                        <span class="timeline-desc">The current age - The Imperium stands on the brink</span>
-                    </div>
+                    <p id="gameStatus" class="game-status"></p>
                 </div>
             </div>
+        </main>
 
-            <div class="action-section">
-                <button onclick="showMessage()" class="btn-primary">Activate Vox Transmission</button>
-                <p id="message" class="message"></p>
-            </div>
-        </div>
-    </main>
-    <footer>
-        <p>IN THE GRIM DARKNESS OF THE FAR FUTURE | There is only War</p>
-    </footer>
+        <footer class="footer">
+            <p>&copy; 2025 Snake Game. Built with HTML5 Canvas and JavaScript.</p>
+        </footer>
+    </div>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
