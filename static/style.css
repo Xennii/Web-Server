@@ -4,6 +4,36 @@
     box-sizing: border-box;
 }
 
+/* Animated background texture */
+@keyframes backgroundShift {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+}
+
+/* Rotating gears animation */
+@keyframes rotateGear1 {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes rotateGear2 {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+}
+
+/* Pulse tech elements */
+@keyframes techPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+}
+
+/* Circuit line animation */
+@keyframes circuitFlow {
+    0% { stroke-dashoffset: 1000; }
+    100% { stroke-dashoffset: 0; }
+}
+
 :root {
     --gold: #d4af37;
     --dark: #0a0a0a;
@@ -21,10 +51,6 @@
     --font-mono: 'Space Mono', monospace;
 }
 
-@keyframes scanlines {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(10px); }
-}
 
 @keyframes glow {
     0%, 100% { text-shadow: 0 0 10px rgba(212, 175, 55, 0.3); }
@@ -217,17 +243,37 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Minimal parallax for background */
+@supports (background-attachment: fixed) {
+    body {
+        background-attachment: fixed;
+    }
+}
+
 body {
     font-family: var(--font-body);
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+    background: 
+        /* Dark overlay filter */
+        linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0.5) 100%),
+        /* Custom background image (add your own!) */
+        url('/static/images/backgrounds/background.jpg') center / cover no-repeat,
+        /* Radial gradient for depth */
+        radial-gradient(ellipse at 20% 30%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+        radial-gradient(ellipse at 80% 70%, rgba(77, 166, 255, 0.05) 0%, transparent 40%),
+        radial-gradient(ellipse at 50% 100%, rgba(255, 77, 77, 0.03) 0%, transparent 60%),
+        /* Main gradient with dramatic colors (fallback) */
+        linear-gradient(135deg, #0a0a0a 0%, #111118 25%, #1a1a2a 50%, #121218 75%, #0a0a0a 100%);
+    background-size: auto, cover, 200% 200%, auto, auto, 200% 200%;
+    background-attachment: fixed;
+    background-position: 0 0, center, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
     color: #e6d5b8;
     margin: 0;
     padding: 0;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-attachment: fixed;
     position: relative;
+    overflow-x: hidden;
 }
 
 body::before {
@@ -237,29 +283,104 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background: repeating-linear-gradient(
-        0deg,
-        rgba(255, 255, 255, 0.02) 0px,
-        rgba(255, 255, 255, 0.02) 1px,
-        transparent 1px,
-        transparent 2px
-    );
+    background: 
+        /* Chromatic aberration effect - red channel */
+        repeating-linear-gradient(
+            90deg,
+            rgba(255, 0, 0, 0.02) 0px,
+            rgba(255, 0, 0, 0.02) 1px,
+            transparent 1px,
+            transparent 3px
+        ),
+        /* Chromatic aberration effect - blue channel */
+        repeating-linear-gradient(
+            90deg,
+            rgba(0, 0, 255, 0.02) 0px,
+            rgba(0, 0, 255, 0.02) 2px,
+            transparent 2px,
+            transparent 4px
+        ),
+        /* Chromatic aberration effect - green channel */
+        repeating-linear-gradient(
+            90deg,
+            rgba(0, 255, 0, 0.01) 0px,
+            rgba(0, 255, 0, 0.01) 1px,
+            transparent 1px,
+            transparent 3px
+        );
     pointer-events: none;
     z-index: 1;
-    animation: scanlines 8s linear infinite;
+    mix-blend-mode: overlay;
+}
+
+/* Tech/Mechanical layer */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        /* Circuit/grid pattern */
+        repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            transparent 39px,
+            rgba(212, 175, 55, 0.06) 39px,
+            rgba(212, 175, 55, 0.06) 40px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            transparent 39px,
+            rgba(212, 175, 55, 0.06) 39px,
+            rgba(212, 175, 55, 0.06) 40px
+        ),
+        /* Tech line accents */
+        repeating-linear-gradient(
+            135deg,
+            transparent 0px,
+            transparent 200px,
+            rgba(77, 166, 255, 0.04) 200px,
+            rgba(77, 166, 255, 0.04) 201px
+        ),
+        /* Vertical tech streams */
+        repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            transparent 100px,
+            rgba(212, 175, 55, 0.03) 100px,
+            rgba(212, 175, 55, 0.03) 101px
+        );
+    pointer-events: none;
+    z-index: 0;
+    animation: techPulse 8s ease-in-out infinite;
 }
 
 header {
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2a 50%, #0a0a0a 100%);
+    background: 
+        /* Top fade */
+        linear-gradient(180deg, rgba(0,0,0,0.4) 0%, transparent 100%),
+        /* Main gradient */
+        linear-gradient(135deg, #0f0f0f 0%, #1a1a2a 50%, #0f0f0f 100%);
     border-bottom: 3px solid #d4af37;
+    border-image: linear-gradient(90deg, #d4af37, rgba(212, 175, 55, 0.3), #d4af37) 1;
     padding: 50px 20px;
     text-align: center;
     font-size: 3.2rem;
     font-weight: 900;
     font-family: var(--font-mechanical);
     color: #d4af37;
-    text-shadow: 0 0 30px rgba(212, 175, 55, 0.4), 3px 3px 6px rgba(0, 0, 0, 0.9);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    text-shadow: 
+        0 0 30px rgba(212, 175, 55, 0.5), 
+        0 0 60px rgba(212, 175, 55, 0.2),
+        3px 3px 6px rgba(0, 0, 0, 0.9),
+        0 0 10px rgba(212, 175, 55, 0.3);
+    box-shadow: 
+        0 12px 40px rgba(0, 0, 0, 0.9), 
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 0 40px rgba(212, 175, 55, 0.1);
     letter-spacing: 4px;
     position: relative;
     z-index: 2;
@@ -348,29 +469,41 @@ main {
     z-index: 2;
 }
 
+/* Engineering elements removed */
+
 .container {
     max-width: 1000px;
     margin: 0 auto;
-    background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+    background: 
+        /* Tech corner accents */
+        linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
+        linear-gradient(-135deg, rgba(77, 166, 255, 0.05) 0%, transparent 40%),
+        /* Main background */
+        linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
     color: #e6d5b8;
     padding: 50px;
     border: 2px solid rgba(212, 175, 55, 0.5);
     border-radius: 2px;
-    box-shadow: 0 0 40px rgba(212, 175, 55, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 0 40px rgba(212, 175, 55, 0.2), 
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 0 60px rgba(212, 175, 55, 0.05);
     position: relative;
     animation: slideInLeft 0.8s ease-out;
+    overflow: hidden;
+    z-index: 3;
 }
 
 .container::before {
     content: '';
     position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, #d4af37, transparent, #d4af37);
-    z-index: -1;
-    opacity: 0.1;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #d4af37, transparent, rgba(77, 166, 255, 0.3), transparent, #d4af37);
+    opacity: 0.4;
+    animation: techPulse 6s ease-in-out infinite;
 }
 
 .hero-section {
@@ -717,7 +850,8 @@ main {
     opacity: 1;
 }
 
-.faction-detailed:hover {
+.faction-detailed:hover,
+.faction-detailed.faction-hovered {
     border-color: rgba(212, 175, 55, 0.6);
     background: linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0.05) 100%);
     transform: translateY(-5px);
@@ -1091,7 +1225,6 @@ body[data-page="home"] .content-card:nth-child(4) {
 /* FACTIONS PAGE */
 body[data-page="factions"] {
     --page-accent: var(--gold);
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 40%, #0f0a15 100%);
 }
 
 body[data-page="factions"] .container {
@@ -1126,7 +1259,6 @@ body[data-page="factions"] .faction-detailed:hover {
 /* LORE PAGE */
 body[data-page="lore"] {
     --page-accent: var(--secondary);
-    background: linear-gradient(135deg, #0a0a0a 0%, #0f0a1a 50%, #1a0f15 100%);
 }
 
 body[data-page="lore"] .historical-era {
@@ -1188,7 +1320,6 @@ body[data-page="lore"] .timeline-date::before {
 /* CHARACTERS PAGE */
 body[data-page="characters"] {
     --page-accent: var(--text);
-    background: linear-gradient(135deg, #0a0a0a 0%, #15050f 50%, #0a0a15 100%);
 }
 
 body[data-page="characters"] .container {

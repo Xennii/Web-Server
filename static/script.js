@@ -120,26 +120,14 @@ function initFactionsPage() {
     const factions = document.querySelectorAll('.faction-detailed');
     factions.forEach((faction, index) => {
         faction.addEventListener('mouseenter', function() {
-            // Animate the faction on hover
-            this.style.transform = 'translateX(15px) scale(1.02)';
-            this.style.borderColor = '#d4af37';
-        });
-        faction.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateX(0) scale(1)';
-            this.style.borderColor = '#d4af37';
-        });
+            // Only add animation class, don't use inline styles
+            this.classList.add('faction-hovered');
+        }, { passive: true });
         
-        // Add glow effect to faction header
-        const header = faction.querySelector('.faction-header');
-        if (header) {
-            faction.addEventListener('mouseenter', function() {
-                header.style.textShadow = '0 0 20px rgba(212, 175, 55, 0.8)';
-            });
-            faction.addEventListener('mouseleave', function() {
-                const color = window.getComputedStyle(header).color;
-                header.style.textShadow = '0 0 10px rgba(212, 175, 55, 0.5)';
-            });
-        }
+        faction.addEventListener('mouseleave', function() {
+            // Remove animation class only on mouseleave
+            this.classList.remove('faction-hovered');
+        }, { passive: true });
     });
 }
 
@@ -214,4 +202,6 @@ function initCharactersPage() {
         });
     });
 }
+
+
 
