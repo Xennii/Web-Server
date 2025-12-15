@@ -161,7 +161,7 @@ function draw() {
         if (index === 0) {
             // Head - bright green
             ctx.fillStyle = '#10b981';
-            ctx.shadowColor = 'rgba(16, 185, 129, 0.4)';
+            ctx.shadowColor = 'rgba(0, 91, 61, 0.4)';
             ctx.shadowBlur = 6;
         } else {
             // Body - lighter green
@@ -190,7 +190,7 @@ function draw() {
         else if (dy === -1) eyeOffsetY = -6; // moving up
         
         // Draw eye
-        ctx.fillStyle = '#ffffff';
+        ctx.fillStyle = '#000000ff';
         ctx.beginPath();
         ctx.arc(hx + eyeOffsetX, hy + eyeOffsetY, 2, 0, Math.PI * 2);
         ctx.fill();
@@ -198,7 +198,7 @@ function draw() {
     
     // Draw food as a circle with glow
     ctx.shadowColor = 'rgba(239, 68, 68, 0.6)';
-    ctx.shadowBlur = 8;
+    ctx.shadowBlur = 10;
     ctx.fillStyle = '#ef4444';
     ctx.beginPath();
     ctx.arc(food.x * gridSize + gridSize / 2, food.y * gridSize + gridSize / 2, gridSize / 2 - 1, 0, Math.PI * 2);
@@ -217,7 +217,7 @@ function endGame() {
         highScore = score;
         localStorage.setItem('snakeHighScore', highScore);
         document.getElementById('highScore').textContent = highScore;
-        document.getElementById('gameStatus').textContent = `🎉 New High Score: ${score}!`;
+        document.getElementById('gameStatus').textContent = `New High Score: ${score}!`;
     } else {
         document.getElementById('gameStatus').textContent = `Game Over! Final Score: ${score}`;
     }
